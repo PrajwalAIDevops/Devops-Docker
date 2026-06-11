@@ -1,28 +1,58 @@
-from fastapi import FastAPI
+from __future__ import annotations
 
-app = FastAPI()
+import os
+from flask import Flask, render_template, request
 
-# 1st API
-@app.get("/api1")
-def api_one():
-    return {"message": "EC2 API 1 response end"}
 
-# 2nd API
-@app.get("/api2")
-def api_two():
-    return {"message": "EC2 API 2 response end"}
+def create_app() -> Flask:
+    app = Flask(
+        __name__,
+        static_folder="static",
+        template_folder="templates",
+    )
 
-# 3rd API
-@app.get("/api3")
-def api_three():
-    return {"message": "EC2 API 3 response end"}
+    @app.get("/")
+    def home():
+        return render_template("index.html")
 
-# 4th API
-@app.get("/api4")
-def api_four():
-    return {"message": "EC2 API 4 response end"}
+    @app.get("/about")
+    def about():
+        return render_template("about.html")
 
-# 5th API
-@app.get("/api5")
-def api_five():
-    return {"message": "EC2 API 5 response end"}
+    @app.get("/projects")
+    def projects():
+        # In a real app, this could come from a CMS or database.
+        return render_template("projects.html")
+
+    @app.get("/contact")
+    def contact_get():
+        return render_template("contact.html", status=None, form_data=None)
+
+    @app.post("/contact")
+    def contact_post():
+        name = (request.form.get("name") or "").strip()
+        email = (request.form.get("email") or "").strip()
+        message = (request.form.get("message") or "").strip()
+
+        # Lightweight demo: do not send email automatically.
+        # For production: integrate with SendGrid/SES or your preferred provider.
+        status = None
+        if name and email and message:
+            status = "Thanks! Your message was received (demo)."
+        else:
+            status = "Please fill in all fields."
+
+        form_data = {"name": name, "email": email, "message": message}
+        return render_template("contact.html", status=status, form_data=form_data)
+
+    return app
+
+
+app = create_app()
+
+
+if __name__ == "__main__":
+    # Local dev defaults
+    port = int(os.environ.get("PORT", "5000"))
+    app.run(host="0.0.0.0", port=port, debug=os.environ.get("FLASK_DEBUG") == "1")
+

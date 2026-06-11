@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About - Personal Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">Prajwal Devops</a>
+        <nav class="menu">
+          <a href="/about" class="active">About</a>
+          <a href="/projects">Projects</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container page">
+      <h1>About</h1>
+      <p>
+        Write a short story about yourself, what you do, and what you’re
+        interested in.
+      </p>
+
+      <h2>What I do</h2>
+      <ul>
+        <li>Design & build web applications</li>
+        <li>Integrate APIs and automate workflows</li>
+        <li>Deploy and maintain services</li>
+      </ul>
+
+      <h2>Principles</h2>
+      <p>
+        Clarity over cleverness, testing where it matters, and continuous
+        improvement.
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© Prajwal Devops</div>
+    </footer>
+  </body>
+</html>
+

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact - Personal Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">Prajwal Devops</a>
+        <nav class="menu">
+          <a href="/about">About</a>
+          <a href="/projects">Projects</a>
+          <a href="/contact" class="active">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container page">
+      <h1>Contact</h1>
+      <p>Send a message (demo form).</p>
+
+      {% if status %}
+        <div class="notice" role="status">{{ status }}</div>
+      {% endif %}
+
+      <form method="post" class="form" action="/contact">
+        <label>
+          <span>Prajwal Devops</span>
+          <input
+            name="name"
+            type="text"
+            placeholder="Jane Doe"
+            value="{{ (form_data.name if form_data else '') }}"
+          />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input
+            name="email"
+            type="email"
+            placeholder="jane@example.com"
+            value="{{ (form_data.email if form_data else '') }}"
+          />
+        </label>
+
+        <label>
+          <span>Message</span>
+          <textarea
+            name="message"
+            rows="6"
+            placeholder="How can I help?"
+          >{{ (form_data.message if form_data else '') }}</textarea>
+        </label>
+
+        <button class="btn" type="submit">Send</button>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© Prajwal Devops</div>
+    </footer>
+  </body>
+</html>
+
